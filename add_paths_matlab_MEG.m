@@ -30,9 +30,9 @@ switch strtrim(whoisrunning)
         session_path.matfiles   = fullfile(main_path,'MEGEYE\MAT_DATA');
     
     case 'laptop-5i5qsv76\joaco' % Joac Asus
-        data_path                       = 'E:\Doc\MEGEYE';
-        runpath                         = fullfile('H:\','MEGEYE\MEG_analysis\');
-        code_path.fieldtrippath         = fullfile('H:\fieldtrip-20220104');
+        data_path                       = 'F:\Doc\MEGEYE';
+        runpath                         = fullfile('C:\Users\joaco\Desktop\Joac\DOC\MEGEYE\MEG_analysis\');
+        code_path.fieldtrippath         = fullfile('C:\Users\joaco\Desktop\Joac\DOC\MEGEYE\toolboxes\fieldtrip-20220104');
         code_path.my_functions          = fullfile(runpath,'my_functions');
         
         session_path.raw        = fullfile(data_path,'\CTF_DATA');

@@ -52,7 +52,7 @@ matdir                      = session_path.matfiles;
 % from 'check_button_press_MEG.m
 calc_behavior = 1;
 if calc_behavior
-    for su = 17 %1:length(session_path.subjname)
+    for su = 3 %1:length(session_path.subjname)
         fun_check_behavior(su,session_path,runpath)
     end
 end
@@ -103,7 +103,7 @@ end
 xh = [0,1,2,4,8,16,32,64,128,211,212,221,222,231,232,241,242,251,252,253]; % 0 and 253 are not important, I use them just to collect data outside the range
 YH = [];
 ID = [];
-for su = 17 %1:length(session_path.subjname)
+for su = 3 %1:length(session_path.subjname)
     subjname            = session_path.subjname{su};
     subjcode            = session_path.subjcode{su};
     sessionfilenames    = session_path.sessionfilenames{su};
@@ -266,7 +266,7 @@ end
 % MJI: modify and execute build_ExpTrials for last two subjects
     
 %% Step 0.2. Define sequence of trials (PSEUDO-MANUALLY).
-for su = 17 %[1:3 5:length(session_path.subjname)]
+for su = 3 %[1:3 5:length(session_path.subjname)]
     subjname            = session_path.subjname{su};
     subjcode            = session_path.subjcode{su};
     sessionfilenames    = session_path.sessionfilenames{su};
@@ -331,7 +331,7 @@ end
 
 
 %% Step 1.1. Select Participant
-su = 17
+su = 3
 
 %% Step 1.2. For ONE participant: First steps of analysis
 % Creates cfg (Fieltrip structure). 
@@ -459,7 +459,7 @@ matdir                      = session_path.matfiles;
 [session_path] = remove_empty_subjects(session_path);
 
 %% Step 2.1. Select Participant
-su = 17;
+su = 3;
     subjname            = session_path.subjname{su};
     subjcode            = session_path.subjcode{su};
     sessionfilenames    = session_path.sessionfilenames{su};
