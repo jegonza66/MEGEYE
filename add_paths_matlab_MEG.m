@@ -8,36 +8,50 @@ end
 
 switch strtrim(whoisrunning)
     case 'duip66033\lpzmi_local'
-        dropbox_path                    = 'D:/Dropbox';
-        runpath                         = fullfile(dropbox_path,'fERPs_Wheres_Wally/2018_ExpeNotts/MEG_analysis/');
-        code_path.fieldtrippath         = fullfile(dropbox_path,'big_files_shared','fieldtrip-20170827');
+        main_path                       = 'D:/Dropbox';
+        runpath                         = fullfile(main_path,'fERPs_Wheres_Wally/2018_ExpeNotts/MEG_analysis/');
+        code_path.fieldtrippath         = fullfile(main_path,'big_files_shared','fieldtrip-20170827');
         %code_path.fieldtrippath=fullfile('D:\toolbox','fieldtrip-20180711');
         code_path.my_functions          = fullfile(runpath,'my_functions');
         %session_path.raw=fullfile('H:\MEGEYE\CTF_DATA');
         
-    case 'ad\lpajg1' % Joac
-        dropbox_path                    = 'H:\';
+        session_path.raw        = fullfile(main_path,'big_files_shared/CTF_DATA');
+        session_path.rawet      = fullfile(main_path,'big_files_shared/ET_DATA');
+        session_path.matfiles   = fullfile(main_path,'big_files_shared/MAT_DATA');
+        
+    case 'ad\lpajg1' % Joac Notts
+        main_path                       = 'H:\';
         runpath                         = fullfile('H:\','MEGEYE\MEG_analysis\');
         code_path.fieldtrippath         = fullfile('H:\fieldtrip-20220104');
         code_path.my_functions          = fullfile(runpath,'my_functions');
         
-        session_path.raw        = fullfile(dropbox_path,'MEGEYE\CTF_DATA');
-        session_path.rawet      = fullfile(dropbox_path,'MEGEYE\ET_DATA');
-        session_path.matfiles   = fullfile(dropbox_path,'MEGEYE\MAT_DATA');
+        session_path.raw        = fullfile(main_path,'MEGEYE\CTF_DATA');
+        session_path.rawet      = fullfile(main_path,'MEGEYE\ET_DATA');
+        session_path.matfiles   = fullfile(main_path,'MEGEYE\MAT_DATA');
+    
+    case 'laptop-5i5qsv76\joaco' % Joac Asus
+        data_path                       = 'E:\Doc\MEGEYE';
+        runpath                         = fullfile('H:\','MEGEYE\MEG_analysis\');
+        code_path.fieldtrippath         = fullfile('H:\fieldtrip-20220104');
+        code_path.my_functions          = fullfile(runpath,'my_functions');
+        
+        session_path.raw        = fullfile(data_path,'\CTF_DATA');
+        session_path.rawet      = fullfile(data_path,'\ET_DATA');
+        session_path.matfiles   = fullfile(data_path,'\MAT_DATA');
         
     case 'root' %'juank-Desktop'
-        dropbox_path                    = '~/Dropbox';
-        runpath                         = fullfile(dropbox_path,'fERPs_Wheres_Wally/2018_ExpeNotts/MEG_analysis/');
+        main_path                       = '~/Dropbox';
+        runpath                         = fullfile(main_path,'fERPs_Wheres_Wally/2018_ExpeNotts/MEG_analysis/');
         code_path.fieldtrippath         = fullfile('/home/juank/toolbox/fieldtrip-20170827');
         code_path.my_functions          = fullfile(runpath,'my_functions');
+        
+        session_path.raw        = fullfile(main_path,'big_files_shared/CTF_DATA');
+        session_path.rawet      = fullfile(main_path,'big_files_shared/ET_DATA');
+        session_path.matfiles   = fullfile(main_path,'big_files_shared/MAT_DATA');
 
     otherwise
         warning(['User unknown: ' whoisrunning ' , check paths']);
 end
-
-% session_path.raw        = fullfile(dropbox_path,'big_files_shared/CTF_DATA');
-% session_path.rawet      = fullfile(dropbox_path,'big_files_shared/ET_DATA');
-% session_path.matfiles   = fullfile(dropbox_path,'big_files_shared/MAT_DATA');
 
 session_path.directories = {''; ''};
 % session_path.sessionfilenames = {'13434001_MarkusBauer_20180629_01.ds';

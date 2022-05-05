@@ -250,11 +250,14 @@ if ~exist([cfg.matdir,'/matfiles/eyemap_sequence_', cfg.myfname,'.mat'],'file')
         101, 200, 102, 200, 104, 200, 103, 200, 101, 200, 103, 200, 104, 200, 102, 200, 104, 200, 104, 200, ...
         103, 200, 101, 200, 104, 200, 102, 200, 101, 200, 103, 200, 104, 200, 102, 200, 104, 200, 104, 200]';
     sequence.equivalence = {'SH', 101; 'LH', 102; 'SV', 103; 'LV', 104; 'BL', 105; 'OFF', 200};
+    if ~exist([cfg.matdir,'/matfiles/'], 'dir')
+        mkdir([cfg.matdir,'/matfiles/']);
+    end
     save([cfg.matdir,'/matfiles/eyemap_sequence_', cfg.myfname,'.mat'],'sequence');
+        
 else
     load([cfg.matdir,'/matfiles/eyemap_sequence_', cfg.myfname,'.mat']);
 end
-
 
 %% Step 0.1. Build unique ExpTrial files.
 % build_ExpTrials.m looks for individual trials stored in Trials folder and
