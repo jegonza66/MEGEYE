@@ -52,7 +52,7 @@ matdir                      = session_path.matfiles;
 % from 'check_button_press_MEG.m
 calc_behavior = 1;
 if calc_behavior
-    for su = 3 %1:length(session_path.subjname)
+    for su = 17 %1:length(session_path.subjname)
         fun_check_behavior(su,session_path,runpath)
     end
 end
@@ -97,13 +97,10 @@ end
 %     cfg.evts.OffBL          = 252;
 
 
-
-
-
 xh = [0,1,2,4,8,16,32,64,128,211,212,221,222,231,232,241,242,251,252,253]; % 0 and 253 are not important, I use them just to collect data outside the range
 YH = [];
 ID = [];
-for su = 3 %1:length(session_path.subjname)
+for su = 17 %1:length(session_path.subjname)
     subjname            = session_path.subjname{su};
     subjcode            = session_path.subjcode{su};
     sessionfilenames    = session_path.sessionfilenames{su};
@@ -229,7 +226,9 @@ cfg.eyemap_sequence         = [cfg.matdir,'/matfiles/eyemap_sequence_', cfg.myfn
 
 display('________________________________________________');
             display(['subject: ',subjname]);
-            cfg.myfname         = sessionfilenames{j}([1:(end-3)]);
+            %cfg.myfname         = sessionfilenames{j}([1:(end-3)]); JG
+            %comento esto porque redefine el nombre de un archivo que se
+            %acaba de definir y no se poqrque.
             cfg.dataset         = [ctfdir,filesep,sessionfilenames{j}];
             
             cfg.continuous      = 'yes';
@@ -266,7 +265,7 @@ end
 % MJI: modify and execute build_ExpTrials for last two subjects
     
 %% Step 0.2. Define sequence of trials (PSEUDO-MANUALLY).
-for su = 3 %[1:3 5:length(session_path.subjname)]
+for su = 17 %[1:3 5:length(session_path.subjname)]
     subjname            = session_path.subjname{su};
     subjcode            = session_path.subjcode{su};
     sessionfilenames    = session_path.sessionfilenames{su};
@@ -331,7 +330,7 @@ end
 
 
 %% Step 1.1. Select Participant
-su = 3
+su = 17
 
 %% Step 1.2. For ONE participant: First steps of analysis
 % Creates cfg (Fieltrip structure). 
@@ -379,13 +378,22 @@ for j = 1:length(sessionfilenames)
     end
 end
 %% Builds EYEMAP sequence
-%cfg.eyemap_preprocfname     = [cfg.matdir,'/matfiles/eyemap_cfg_',  cfg.myfname,'.mat'];
-eyemap_cfg = load(cfg.eyemap_preprocfname);
-if ~exist([cfg.matdir,'/matfiles/eyemap_sequence_', cfg.myfname,'.mat'],'file')
-    sequence = fun_buildeyemap_sequence(eyemap_cfg.cfg);
-    save([cfg.matdir,'/matfiles/eyemap_sequence_', cfg.myfname,'.mat'],'sequence');
-else
-    load([cfg.matdir,'/matfiles/eyemap_sequence_', cfg.myfname,'.mat']);
+for j = 1:length(sessionfilenames)
+    cfg.matdir      = [matdir,filesep,subjname,filesep,sessionfilenames{j}(1:end-3)];
+    cfg.myfname         = sessionfilenames{j}([1:(end-3)]);
+    % JG Agrego este for sobre las sesiones 
+    % porque despues en la linea 404 busca este archivo para cada sesion y 
+    % no lo encontraba para la sesion 1 porque los paths de los archivos
+    % quedaron definidos a la salida del loop anterior.
+    
+    %cfg.eyemap_preprocfname     = [cfg.matdir,'/matfiles/eyemap_cfg_',  cfg.myfname,'.mat'];
+    eyemap_cfg = load(cfg.eyemap_preprocfname);
+    if ~exist([cfg.matdir,'/matfiles/eyemap_sequence_', cfg.myfname,'.mat'],'file')
+        sequence = fun_buildeyemap_sequence(eyemap_cfg.cfg);
+        save([cfg.matdir,'/matfiles/eyemap_sequence_', cfg.myfname,'.mat'],'sequence');
+    else
+        load([cfg.matdir,'/matfiles/eyemap_sequence_', cfg.myfname,'.mat']);
+    end
 end
 
 %% Step 1.3. For ONE participant: Merge data files (needed because output from previous steps 
@@ -459,7 +467,7 @@ matdir                      = session_path.matfiles;
 [session_path] = remove_empty_subjects(session_path);
 
 %% Step 2.1. Select Participant
-su = 3;
+su = 17;
     subjname            = session_path.subjname{su};
     subjcode            = session_path.subjcode{su};
     sessionfilenames    = session_path.sessionfilenames{su};
@@ -574,15 +582,16 @@ figure(1); clf
     cfg.sequence                = [cfg.matdir,'/matfiles/sequence_',    cfg.myfname,'.mat'];
     cfg.eyemap_sequence         = [cfg.matdir,'/matfiles/eyemap_sequence_', cfg.myfname,'.mat'];
 %MJI error: cfg.eyemap sequence doesn't exist
-    fun_replace_eventmarkers(cfg.eyemap_datafname,          cfg.eyemap_datafname,       cfg.eyemap_sequence)
-    fun_replace_eventmarkers(cfg.eyemap_datafname_weyech,   cfg.eyemap_datafname_weyech,cfg.eyemap_sequence)
+% JG Saco las lineas del eyemap.
+%     fun_replace_eventmarkers(cfg.eyemap_datafname,          cfg.eyemap_datafname,       cfg.eyemap_sequence)
+%     fun_replace_eventmarkers(cfg.eyemap_datafname_weyech,   cfg.eyemap_datafname_weyech,cfg.eyemap_sequence)
     fun_replace_eventmarkers(cfg.datafname,                 cfg.datafname,              cfg.sequence)
     fun_replace_eventmarkers(cfg.datafname_weyech,          cfg.datafname_weyech,       cfg.sequence)
 %MJI: run without cfg.eyemap_data... lines            
 %% Remove extra channels (Only keep the analog eye channels)
 % Detect fixations (I'm going to use EyeLink saccade detection for now).
 j = 1;
-cfg.directory   = [experimentdir,directories{j}];
+cfg.directory   = [cfg.matdir,directories{j}];
 cfg.myfname     = sessionfilenames{j}([1:(end-3)]);
 cfg.dataset     = [cfg.directory,filesep,sessionfilenames{j}];
 % clear experimentdir directories sessionfilenames

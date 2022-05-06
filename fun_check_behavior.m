@@ -103,7 +103,7 @@ function fun_check_behavior(isub,session_path,runpath)
         title(['Session: ' session_name '     %LeftPressed:  ' num2str(left_button_pressed)])
         outfile=fullfile(session_path.rawet,'out',['buttons_' session_name]); print(gcf,'-dpng',outfile);
         %
-        figure;clf
+       
         figure;plot(button_trial_timing,'bo')
         hold on;plot(button_time,'rx')
         legend('button trial timing','button time')
