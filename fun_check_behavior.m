@@ -29,6 +29,9 @@ function fun_check_behavior(isub,session_path,runpath)
                 %SingleTrial.resp
                     trial_acc(ikk)                = itrial;
                     %button_key(itrial)            = SingleTrial.resp.key-1; %0=A, 1=P
+                    % SingleTrial.key = 0 siempre para el sujeto 17
+                    % Entonces button key = -1 Siempre. ENtonces nunca es
+                    % igual a correct answer (0 o 1)
                     if(SingleTrial.resp.key~=0) %a button was pressed
                         button_key(itrial)            = mod(SingleTrial.resp.key+1,2); %0=A, 1=P
                     end
